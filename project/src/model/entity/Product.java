@@ -40,7 +40,6 @@ public class Product {
         this.price = price;
     }
 
-    // Método toString
     @Override
     public String toString() {
         return "Product{" +

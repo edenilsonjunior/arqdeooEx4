@@ -29,14 +29,14 @@ public class Inventory {
         return this.products.add(product);
     }
 
-   public void changeQuantity(String name, int qtd) {
+    public void changeQuantity(String name, int qtd) {
 
         for (var p : products){
             if(p.getName().equals(name)){
-
-                if(p.getQuantity() + qtd >= 0){
-                    synchronized (products) {
-                        p.updateQuantity(qtd);
+          
+                synchronized (products){
+                    if(p.getQuantity() + qtd >= 0){                    
+                        p.updateQuantity(qtd);               
                     }
                 }
                 break;
