@@ -8,7 +8,6 @@ public class Inventory {
     private List<Product> products;
 
     public Inventory() {
-
         this.products = new CopyOnWriteArrayList<>();
     }
 
@@ -28,13 +27,22 @@ public class Inventory {
             return true;
         }
         return this.products.add(product);
-
     }
 
-    public void remove(Product product) {
-        this.products.remove(product);
-    }
+   public void changeQuantity(String name, int qtd) {
 
+        for (var p : products){
+            if(p.getName().equals(name)){
+
+                if(p.getQuantity() + qtd >= 0){
+                    synchronized (products) {
+                        p.updateQuantity(qtd);
+                    }
+                }
+                break;
+            }
+        }
+   }
 
     public String ListProducts() {
         String list = "";
@@ -42,5 +50,9 @@ public class Inventory {
             list += product.toString() + "\n";
         }
         return list;
+    }
+
+    public List<Product> getProducts(){
+        return products;
     }
 }
